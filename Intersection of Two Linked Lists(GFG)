@@ -1,0 +1,40 @@
+class Solution{
+  public:
+    Node* findIntersection(Node* head1, Node* head2)
+    {
+        // code here
+        // return the head of intersection list
+        
+        unordered_map<int,int>map;
+        Node*curr = head2;
+        
+        while(curr){
+            map[curr->data]++;
+            curr=curr->next;
+        }
+        
+        Node*dummyNode = new Node(-1);
+        Node*dummypointer = dummyNode;
+        curr=head1;
+        
+        while(curr){
+            
+            if(map.find(curr->data)!=map.end()){
+                
+                if(map[curr->data]>0){
+                    dummypointer->next=curr;
+                    dummypointer= dummypointer->next;
+                    map[curr->data]--;
+                    
+                }
+            }
+            curr=curr->next;
+        }
+        dummypointer->next=NULL;
+        
+        
+        return dummyNode->next;
+        
+        
+    }
+};
