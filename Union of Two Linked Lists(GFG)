@@ -1,0 +1,34 @@
+class Solution
+{
+    public:
+    struct Node* makeUnion(struct Node* head1, struct Node* head2)
+    {
+        // code here
+         Node*curr = head1;
+         map<int,Node*>map;
+         
+         while(curr){
+             map[curr->data]=curr;
+             curr=curr->next;
+         }
+         
+         curr=head2;
+         while(curr){
+             map[curr->data]=curr;
+             curr=curr->next;
+         }
+         
+         
+         Node*dummyNode= new Node(-1);
+         curr=dummyNode;
+         
+         for(auto it:map){
+             curr->next=it.second;
+             curr= curr->next;
+         }
+         curr->next=NULL;
+         
+          return dummyNode->next;
+    }
+    
+};
