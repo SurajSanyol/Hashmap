@@ -1,0 +1,38 @@
+class Solution {
+public:
+    string replaceWords(vector<string>& dictionary, string sentence) {
+        map<string, int> map;
+        for (auto& it : dictionary) {
+            map[it] = 1;
+        }
+
+        string ans = "";
+        string word = "";
+        bool ok = false;
+
+        for (int i = 0; i < sentence.size(); i++) {
+            if (sentence[i] == ' ') {
+                if (ok == false) {
+                    ans += word;
+                    ans += " ";
+                }
+                word = "";
+                ok = false;
+            } else {
+                word += sentence[i];
+                if (map[word] == 1 && ok == false) {
+                    ans += word;
+                    ans += " ";
+                    ok = true;
+                }
+            }
+        }
+
+        if (ok == false) {
+            ans += word;
+        } else if (!ans.empty() && ans.back() == ' ') {
+            ans.pop_back();
+        }
+        return ans;
+    }
+};
